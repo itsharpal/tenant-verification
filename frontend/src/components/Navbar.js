@@ -1,41 +1,116 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Home, User, FileText, LogIn, UserPlus, Menu, X } from 'lucide-react';
 
 function Navbar() {
   const [open, setOpen] = useState(false);
-  const location = useLocation();
-  const isActive = (path) => location.pathname === path;
+  const [currentPath, setCurrentPath] = useState('/'); // Simulate current path
+  
+  const isActive = (path) => currentPath === path;
+  
+  const handleNavClick = (path) => {
+    setCurrentPath(path);
+    setOpen(false);
+    // In a real app, you'd use router navigation here
+    console.log(`Navigating to: ${path}`);
+  };
+
+  const navItems = [
+    { path: '/', label: 'Home', icon: Home },
+    { path: '/register', label: 'Register', icon: UserPlus },
+    { path: '/login', label: 'Login', icon: LogIn },
+  ];
 
   return (
-    <header className="site-header sticky">
-      <div className="site-container">
-        <div className="brand-wrap">
-          <Link to="/" className="brand-link">
-            {/* SVG logo (kept inline as in template) */}
-            <svg aria-hidden="true" focusable="false" width="56" height="34" viewBox="0 0 512 309" className="brand-logo">
-              <path d="M120.81 80.561h96.568v7.676h-87.716v57.767h82.486v7.675h-82.486v63.423h88.722v7.675H120.81V80.561zm105.22 0h10.26l45.467 63.423L328.23 80.56L391.441 0l-103.85 150.65l53.515 74.127h-10.663l-48.686-67.462l-48.888 67.462h-10.461l53.917-74.128l-50.296-70.088zm118.898 7.676V80.56h110.048v7.676h-50.699v136.54h-8.852V88.237h-50.497zM0 80.56h11.065l152.58 228.323l-63.053-84.107L9.254 91.468l-.402 133.31H0V80.56zm454.084 134.224c-1.809 0-3.165-1.4-3.165-3.212c0-1.81 1.356-3.212 3.165-3.212c1.83 0 3.165 1.401 3.165 3.212c0 1.811-1.335 3.212-3.165 3.212zm8.698-8.45h4.737c.064 2.565 1.937 4.29 4.693 4.29c3.079 0 4.823-1.854 4.823-5.325v-21.99h4.823v22.011c0 6.252-3.617 9.853-9.603 9.853c-5.62 0-9.473-3.493-9.473-8.84zm25.384-.28h4.78c.409 2.953 3.294 4.828 7.45 4.828c3.875 0 6.717-2.005 6.717-4.764c0-2.371-1.809-3.794-5.921-4.764l-4.005-.97c-5.62-1.316-8.181-4.032-8.181-8.602c0-5.54 4.521-9.227 11.303-9.227c6.308 0 10.916 3.686 11.196 8.925h-4.694c-.452-2.867-2.95-4.657-6.567-4.657c-3.81 0-6.35 1.833-6.35 4.635c0 2.22 1.635 3.493 5.683 4.441l3.423.841c6.373 1.488 9 4.075 9 8.753c0 5.95-4.607 9.68-11.97 9.68c-6.89 0-11.52-3.558-11.864-9.12z" fill="#111" />
-            </svg>
-            <span className="brand-text">DwellVerify</span>
-          </Link>
+    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
+          {/* Brand Logo */}
+          <div className="flex items-center">
+            <button 
+              onClick={() => handleNavClick('/')}
+              className="flex items-center space-x-3 hover:opacity-80 transition-opacity"
+            >
+              <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-2 rounded-xl shadow-lg">
+                <Home className="h-6 w-6 text-white" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  DwellVerify
+                </span>
+                <span className="text-xs text-gray-500 -mt-1">Rental Solutions</span>
+              </div>
+            </button>
+          </div>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-2">
+            {navItems.map((item) => {
+              const IconComponent = item.icon;
+              return (
+                <button
+                  key={item.path}
+                  onClick={() => handleNavClick(item.path)}
+                  className={`flex items-center px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
+                    isActive(item.path)
+                      ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg'
+                      : 'text-gray-700 hover:text-gray-900 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 hover:shadow-md'
+                  }`}
+                >
+                  <IconComponent className={`h-4 w-4 mr-2 ${isActive(item.path) ? 'text-white' : 'text-gray-500'}`} />
+                  {item.label}
+                </button>
+              );
+            })}
+          </nav>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setOpen(!open)}
+            className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+            aria-label="Toggle menu"
+            aria-expanded={open}
+          >
+            {open ? (
+              <X className="h-6 w-6 text-gray-700" />
+            ) : (
+              <Menu className="h-6 w-6 text-gray-700" />
+            )}
+          </button>
         </div>
 
-        <nav className={`nav-links ${open ? 'open' : ''}`}>
-          <Link to="/" className={`nav-item${isActive('/') ? ' nav-item-active' : ''}`} onClick={() => setOpen(false)}>Home</Link>
-          <Link to="/register" className={`nav-item${isActive('/register') ? ' nav-item-active' : ''}`} onClick={() => setOpen(false)}>Register</Link>
-          <Link to="/login" className={`nav-item${isActive('/login') ? ' nav-item-active' : ''}`} onClick={() => setOpen(false)}>Login</Link>
-        </nav>
-
-        <button
-          className="hamburger"
-          aria-label="Toggle menu"
-          aria-expanded={open}
-          onClick={() => setOpen(s => !s)}
-        >
-          <span className="hamb-bun" />
-          <span className="hamb-bun" />
-          <span className="hamb-bun" />
-        </button>
+        {/* Mobile Navigation Menu */}
+        <div className={`md:hidden transition-all duration-300 ease-in-out ${
+          open ? 'max-h-96 opacity-100 pb-4' : 'max-h-0 opacity-0 overflow-hidden'
+        }`}>
+          <nav className="flex flex-col space-y-2 pt-4 border-t border-gray-200">
+            {navItems.map((item) => {
+              const IconComponent = item.icon;
+              return (
+                <button
+                  key={item.path}
+                  onClick={() => handleNavClick(item.path)}
+                  className={`flex items-center px-4 py-3 rounded-xl font-medium transition-all duration-200 ${
+                    isActive(item.path)
+                      ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg'
+                      : 'text-gray-700 hover:text-gray-900 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 hover:shadow-md'
+                  }`}
+                >
+                  <IconComponent className={`h-5 w-5 mr-3 ${isActive(item.path) ? 'text-white' : 'text-gray-500'}`} />
+                  {item.label}
+                </button>
+              );
+            })}
+          </nav>
+        </div>
       </div>
+
+      {/* Mobile Menu Overlay */}
+      {open && (
+        <div 
+          className="fixed inset-0 bg-black/20 backdrop-blur-sm md:hidden z-[-1]"
+          onClick={() => setOpen(false)}
+        />
+      )}
     </header>
   );
 }
