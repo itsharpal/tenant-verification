@@ -27,41 +27,9 @@ function TenantView({ onLogout, userData, onNavigate }) {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 pt-16">
       {/* Header */}
-      {/* <header className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <Home className="h-8 w-8 text-blue-600 mr-3" />
-              <h1 className="text-xl font-semibold text-gray-900">RentVerify</h1>
-            </div>
-            <div className="flex items-center space-x-4">
-              <button className="relative p-2 text-gray-400 hover:text-gray-500 transition-colors">
-                <Bell className="h-6 w-6" />
-                {notifications > 0 && (
-                  <span className="absolute -top-1 -right-1 h-5 w-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
-                    {notifications}
-                  </span>
-                )}
-              </button>
-              <div className="flex items-center space-x-3">
-                <div className="h-8 w-8 bg-blue-500 rounded-full flex items-center justify-center">
-                  <User className="h-5 w-5 text-white" />
-                </div>
-                <span className="text-sm font-medium text-gray-700">{userData.username}</span>
-              </div>
-              <button 
-                onClick={onLogout}
-                className="flex items-center px-3 py-2 text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
-              >
-                <LogOut className="h-4 w-4 mr-2" />
-                Logout
-              </button>
-            </div>
-          </div>
-        </div>
-      </header> */}
+     
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
@@ -266,41 +234,9 @@ function LandlordView({ onLogout, userData, onNavigate }) {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+   <div className="min-h-screen bg-gray-50 pt-16">
       {/* Header */}
-      {/* <header className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <Home className="h-8 w-8 text-purple-600 mr-3" />
-              <h1 className="text-xl font-semibold text-gray-900">RentVerify Pro</h1>
-            </div>
-            <div className="flex items-center space-x-4">
-              <button className="relative p-2 text-gray-400 hover:text-gray-500 transition-colors">
-                <Bell className="h-6 w-6" />
-                {notifications > 0 && (
-                  <span className="absolute -top-1 -right-1 h-5 w-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
-                    {notifications}
-                  </span>
-                )}
-              </button>
-              <div className="flex items-center space-x-3">
-                <div className="h-8 w-8 bg-purple-500 rounded-full flex items-center justify-center">
-                  <User className="h-5 w-5 text-white" />
-                </div>
-                <span className="text-sm font-medium text-gray-700">{userData.username}</span>
-              </div>
-              <button 
-                onClick={onLogout}
-                className="flex items-center px-3 py-2 text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
-              >
-                <LogOut className="h-4 w-4 mr-2" />
-                Logout
-              </button>
-            </div>
-          </div>
-        </div>
-      </header> */}
+      
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
