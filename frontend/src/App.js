@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
 import { 
   Shield, 
   Star, 
@@ -16,11 +16,13 @@ import {
   Menu,
   X
 } from 'lucide-react';
-import Dashboard from "./pages/Dashboard";
+
+// Import your separate dashboard components
+
+import TenantDashboard from "./pages/TenantDashboard";
+import LandlordDashboard from "./pages/LandlordDashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-
-
 
 // Interactive Navbar Component
 function Navbar() {
@@ -79,6 +81,48 @@ function Navbar() {
         )}
       </div>
     </nav>
+  );
+}
+
+// Dashboard Role Selector Component
+function DashboardSelector() {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center pt-20">
+      <div className="bg-white p-8 rounded-2xl shadow-2xl border border-gray-200 max-w-md w-full mx-4">
+        <div className="text-center">
+          <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-4 rounded-2xl mx-auto w-fit mb-6">
+            <Shield className="h-12 w-12 text-white" />
+          </div>
+          <h2 className="text-3xl font-bold text-gray-900 mb-3">Choose Your Dashboard</h2>
+          <p className="text-gray-600 mb-8 leading-relaxed">Select whether you're a tenant looking for properties or a landlord managing rentals.</p>
+          
+          <div className="space-y-4">
+            <Link 
+              to="/dashboard/tenant"
+              className="w-full flex items-center justify-center px-6 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-medium rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-1"
+            >
+              <Users className="h-5 w-5 mr-3" />
+              I'm a Tenant
+              <span className="ml-auto text-blue-200 text-sm">→</span>
+            </Link>
+            <Link 
+              to="/dashboard/landlord"
+              className="w-full flex items-center justify-center px-6 py-4 bg-gradient-to-r from-purple-600 to-purple-700 text-white font-medium rounded-xl hover:from-purple-700 hover:to-purple-800 transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-1"
+            >
+              <Shield className="h-5 w-5 mr-3" />
+              I'm a Landlord
+              <span className="ml-auto text-purple-200 text-sm">→</span>
+            </Link>
+          </div>
+          
+          <div className="mt-8 pt-6 border-t border-gray-200">
+            <p className="text-xs text-gray-500">
+              Need help? <button className="text-blue-600 hover:text-blue-700 font-medium">Contact Support</button>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -569,52 +613,29 @@ function Home() {
   );
 }
 
-// Placeholder components for routing
-// function Register() {
-//   return (
-//     <div className="pt-20 min-h-screen bg-gray-50 flex items-center justify-center">
-//       <div className="text-center">
-//         <h1 className="text-3xl font-bold text-gray-800 mb-4">Register Page</h1>
-//         <p className="text-gray-600">Registration form will be implemented here</p>
-//       </div>
-//     </div>
-//   );
-// }
-
-// function Login() {
-//   return (
-//     <div className="pt-20 min-h-screen bg-gray-50 flex items-center justify-center">
-//       <div className="text-center">
-//         <h1 className="text-3xl font-bold text-gray-800 mb-4">Login Page</h1>
-//         <p className="text-gray-600">Login form will be implemented here</p>
-//       </div>
-//     </div>
-//   );
-// }
-
-// function Dashboard() {
-//   return (
-//     <div className="pt-20 min-h-screen bg-gray-50 flex items-center justify-center">
-//       <div className="text-center">
-//         <h1 className="text-3xl font-bold text-gray-800 mb-4">Dashboard</h1>
-//         <p className="text-gray-600">User dashboard will be implemented here</p>
-//       </div>
-//     </div>
-//   );
-// }
-
-// Main App Component
+// Main App Component with Proper Routing
 function App() {
   return (
     <Router>
       <div className="min-h-screen">
         <Navbar />
+
         <Routes>
+          {/* Public Routes */}
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/dashboard/:role" element={<Dashboard />} />
+
+          {/* Dashboard Routes */}
+          <Route path="/dashboard" element={<DashboardSelector />} />
+          <Route path="/TenantDashboard" element={<TenantDashboard />} />
+          <Route path="/landlordDashboard" element={<LandlordDashboard />} />
+
+          {/* Redirect old route variants */}
+          <Route path="/dashboard/role/:role" element={<Navigate to="/dashboard" replace />} />
+
+          {/* Catch all unknown routes */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
     </Router>
