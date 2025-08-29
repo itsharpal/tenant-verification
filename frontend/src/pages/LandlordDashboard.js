@@ -16,8 +16,10 @@ import {
   MapPin,
   Clock
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 function LandlordDashboard() {
+   const navigate = useNavigate();
   const [notifications, setNotifications] = useState(2);
   const [userData] = useState({
     username: 'Sarah Wilson',
@@ -117,7 +119,7 @@ function LandlordDashboard() {
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-xl font-semibold text-gray-900">Property Portfolio</h3>
                 <button 
-                  onClick={() => handleNavigation('add-property')}
+                  onClick={() => navigate('/Addproperty')}  // Navigate to AddProperty page
                   className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-600 to-purple-700 text-white text-sm font-medium rounded-lg hover:from-purple-700 hover:to-purple-800 transition-all duration-200 shadow-lg hover:shadow-xl"
                 >
                   <Plus className="h-4 w-4 mr-2" />

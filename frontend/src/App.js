@@ -23,6 +23,8 @@ import TenantDashboard from "./pages/TenantDashboard";
 import LandlordDashboard from "./pages/LandlordDashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import AddProperty from "./pages/Addproperty";
+
 
 // Interactive Navbar Component
 function Navbar() {
@@ -636,6 +638,7 @@ function App() {
 
           {/* Catch all unknown routes */}
           <Route path="*" element={<Navigate to="/" replace />} />
+           <Route path="/Addproperty" element={<AddProperty />} />
         </Routes>
       </div>
     </Router>
